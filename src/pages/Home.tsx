@@ -50,7 +50,7 @@ const Home: React.FC = () => {
             <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4">
               <Layers className="w-6 h-6 text-gray-700" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Platforms (PaP)</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Platforms (PaaP)</h3>
             <p className="text-gray-600 text-sm">
               Building and scaling platforms that power products used by millions of users.
             </p>
