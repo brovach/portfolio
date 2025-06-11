@@ -1,11 +1,11 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import Header from './Header';
+// import Header from './Header';
 
 const Layout: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
-      <Header />
+    {/*  <Header /> */}
       <main>
         <Outlet />
       </main>

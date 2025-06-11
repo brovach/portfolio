@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Header: React.FC = () => {
-  const location = useLocation();
+ // const location = useLocation();
 
-  const isActive = (path: string) => location.pathname === path;
+ // const isActive = (path: string) => location.pathname === path;
 
   return (
     <header className="bg-white border-b border-gray-100">
@@ -17,7 +17,7 @@ const Header: React.FC = () => {
             Joe Kovach
           </Link>
           
-          <div className="flex space-x-8">
+         {/* <div className="flex space-x-8">
             <Link
               to="/"
               className={`text-sm font-medium transition-colors ${
@@ -38,7 +38,7 @@ const Header: React.FC = () => {
             >
               Contact
             </Link>
-          </div>
+          </div>*/}
         </nav>
       </div>
     </header>
