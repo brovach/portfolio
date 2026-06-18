@@ -1,59 +1,54 @@
 import React from 'react';
 import { Mail, Linkedin, MapPin } from 'lucide-react';
+import PixelPanel from '../components/ui/PixelPanel';
 
 const Contact: React.FC = () => {
   return (
-    <div className="max-w-4xl mx-auto px-6 py-12">
-      <div className="max-w-2xl mx-auto text-center">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">Get In Touch</h1>
+    <div className="mx-auto max-w-2xl px-5 pb-28 pt-16 sm:pt-24">
+      <h1 className="pixel-hero reveal mb-10 text-center">Get In Touch</h1>
 
-        <div className="space-y-1">
-          {/* Email */}
-          <div className="flex items-center space-x-4 p-3">
-            <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-              <Mail className="w-6 h-6 text-gray-700" />
-            </div>
-            <div className="text-left">
-              <h3 className="font-semibold text-gray-900">Email</h3>
-              <a 
-                href="mailto:hello@joekova.ch" 
-                className="text-gray-600 hover:text-gray-900 transition-colors"
-              >
+      <PixelPanel className="p-6 sm:p-8" revealDelay={140}>
+        <ul className="space-y-6">
+          <li className="flex items-center gap-5">
+            <span className="pixel-icon h-14 w-14 shrink-0">
+              <Mail className="h-7 w-7" aria-hidden="true" />
+            </span>
+            <div>
+              <h2 className="pixel-subheading mb-1">Email</h2>
+              <a href="mailto:hello@joekova.ch" className="link-pixel prose-pixel">
                 hello@joekova.ch
               </a>
             </div>
-          </div>
+          </li>
 
-          {/* LinkedIn */}
-          <div className="flex items-center space-x-4 p-3">
-            <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-              <Linkedin className="w-6 h-6 text-gray-700" />
-            </div>
-            <div className="text-left">
-              <h3 className="font-semibold text-gray-900">LinkedIn</h3>
-              <a 
-                href="https://linkedin.com/in/joekovach" 
-                target="_blank" 
+          <li className="flex items-center gap-5">
+            <span className="pixel-icon h-14 w-14 shrink-0">
+              <Linkedin className="h-7 w-7" aria-hidden="true" />
+            </span>
+            <div>
+              <h2 className="pixel-subheading mb-1">LinkedIn</h2>
+              <a
+                href="https://linkedin.com/in/josephkovach"
+                target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-600 hover:text-gray-900 transition-colors"
+                className="link-pixel prose-pixel"
               >
-                linkedin.com/in/josephkovach/
+                linkedin.com/in/josephkovach
               </a>
             </div>
-          </div>
+          </li>
 
-          {/* Location */}
-          <div className="flex items-center space-x-4 p-3">
-            <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-              <MapPin className="w-6 h-6 text-gray-700" />
+          <li className="flex items-center gap-5">
+            <span className="pixel-icon h-14 w-14 shrink-0">
+              <MapPin className="h-7 w-7" aria-hidden="true" />
+            </span>
+            <div>
+              <h2 className="pixel-subheading mb-1">Location</h2>
+              <p className="prose-pixel">San Francisco Bay Area</p>
             </div>
-            <div className="text-left">
-              <h3 className="font-semibold text-gray-900">Location</h3>
-              <p className="text-gray-600">San Francisco Bay Area</p>
-            </div>
-          </div>
-        </div>
-      </div>
+          </li>
+        </ul>
+      </PixelPanel>
     </div>
   );
 };
