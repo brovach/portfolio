@@ -1,3 +1,739 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* =================================================================== *
+ * 8-bit portfolio — theme palettes
+ * Two worlds, switched by [data-theme] on <html>.
+ * Mountain = cool, misty, dawn. Beach = warm, bright, breezy.
+ * =================================================================== */
+
+:root,
+[data-theme='mountain'] {
+  --sky-1: #1f3357;
+  --sky-2: #3a5680;
+  --sky-3: #8aa6c2;
+  --haze: #c4d3e2;
+
+  --ink: #eef4fb;
+  --ink-soft: #bccde0;
+  --accent: #7fd1e6;
+  --accent-2: #a6e3b6;
+  --link: #8fd4ea;
+  --link-hover: #d2f1fb;
+
+  --panel-bg: rgba(18, 28, 48, 0.8);
+  --panel-line: #9fc4d9;
+  --panel-border: #0f1a2e;
+  --panel-shadow: rgba(5, 10, 20, 0.45);
+
+  /* scene */
+  --sun: #f2e6c8;
+  --mtn-far: #5d7798;
+  --mtn-mid: #3f5878;
+  --mtn-near: #27384f;
+  --treeline: #14241b;
+  --mist: #d6e3ef;
+  --cloud: #dde8f1;
+}
+
+[data-theme='beach'] {
+  --sky-1: #1486c6;
+  --sky-2: #56b4e6;
+  --sky-3: #aee4f7;
+  --haze: #dff4fb;
+
+  --ink: #16323d;
+  --ink-soft: #3a5763;
+  --accent: #ff8a5c;
+  --accent-2: #0fa3b1;
+  --link: #0f7c9c;
+  --link-hover: #0a5066;
+
+  --panel-bg: rgba(255, 250, 238, 0.85);
+  --panel-line: #ffffff;
+  --panel-border: #1d4250;
+  --panel-shadow: rgba(20, 50, 60, 0.3);
+
+  /* scene */
+  --sun: #ffe27a;
+  --sea-far: #1f93ad;
+  --sea-near: #34bcd2;
+  --foam: #eafcff;
+  --sand-1: #f1d99e;
+  --sand-2: #e1bd74;
+  --cloud: #ffffff;
+}
+
+@layer base {
+  html {
+    image-rendering: pixelated;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'VT323', monospace;
+    color: var(--ink);
+    background: var(--sky-1);
+    -webkit-font-smoothing: none;
+    font-smooth: never;
+    transition: color 0.5s ease, background-color 0.5s ease;
+  }
+
+  /* Crisp pixel art for any raster sprites. */
+  img {
+    image-rendering: pixelated;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: #0d1320;
+  }
+}
+
+/* =================================================================== *
+ * Pixel UI components
+ * =================================================================== */
+
+@layer components {
+  .pixel-display {
+    font-family: 'Press Start 2P', monospace;
+    line-height: 1.5;
+  }
+
+  .pixel-hero {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(1.4rem, 5.2vw, 2.75rem);
+    line-height: 1.35;
+    color: var(--ink);
+    text-shadow: 3px 3px 0 var(--panel-border), 6px 6px 0 var(--panel-shadow);
+  }
+
+  .pixel-eyebrow {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(0.55rem, 1.6vw, 0.72rem);
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+
+  .pixel-heading {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(0.9rem, 2.4vw, 1.15rem);
+    line-height: 1.5;
+    color: var(--ink);
+    text-shadow: 2px 2px 0 var(--panel-shadow);
+  }
+
+  .pixel-subheading {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(0.62rem, 1.7vw, 0.78rem);
+    line-height: 1.6;
+    color: var(--ink);
+  }
+
+  .prose-pixel {
+    font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+    line-height: 1.35;
+    color: var(--ink-soft);
+  }
+
+  /* Chunky retro "dialog box" frame: triple-line border + hard drop shadow. */
+  .pixel-panel {
+    position: relative;
+    background: var(--panel-bg);
+    color: var(--ink);
+    backdrop-filter: blur(2px);
+    box-shadow:
+      0 0 0 3px var(--panel-line),
+      0 0 0 7px var(--panel-border),
+      0 0 0 10px var(--panel-line),
+      10px 14px 0 4px var(--panel-shadow);
+    transition: background-color 0.5s ease, box-shadow 0.5s ease, transform 0.18s ease;
+  }
+
+  .pixel-card {
+    position: relative;
+    background: var(--panel-bg);
+    color: var(--ink);
+    backdrop-filter: blur(2px);
+    box-shadow:
+      0 0 0 3px var(--panel-border),
+      6px 8px 0 0 var(--panel-shadow);
+    transition: background-color 0.5s ease, box-shadow 0.18s ease, transform 0.18s ease;
+  }
+
+  .pixel-card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 0 0 3px var(--panel-border),
+      0 0 0 6px var(--accent),
+      10px 12px 0 0 var(--panel-shadow);
+  }
+
+  .pixel-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    background: var(--panel-border);
+    box-shadow: 0 0 0 3px var(--accent);
+  }
+
+  .link-pixel {
+    color: var(--link);
+    text-decoration: none;
+    box-shadow: inset 0 -0.18em 0 0 color-mix(in srgb, var(--link) 30%, transparent);
+    transition: color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .link-pixel:hover {
+    color: var(--link-hover);
+    box-shadow: inset 0 -0.55em 0 0 color-mix(in srgb, var(--link) 22%, transparent);
+  }
+
+  /* Theme toggle + any pixel buttons. */
+  .btn-pixel {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.66rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.85rem 1.1rem;
+    color: var(--ink);
+    background: var(--panel-bg);
+    cursor: pointer;
+    backdrop-filter: blur(2px);
+    box-shadow:
+      0 0 0 3px var(--panel-border),
+      0 0 0 6px var(--panel-line),
+      5px 6px 0 0 var(--panel-shadow);
+    transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.5s ease;
+  }
+
+  .btn-pixel:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 0 0 3px var(--panel-border),
+      0 0 0 6px var(--accent),
+      7px 9px 0 0 var(--panel-shadow);
+  }
+
+  .btn-pixel:active {
+    transform: translateY(2px);
+    box-shadow:
+      0 0 0 3px var(--panel-border),
+      0 0 0 6px var(--panel-line),
+      2px 2px 0 0 var(--panel-shadow);
+  }
+
+  .btn-pixel:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 4px;
+  }
+}
+
+/* Floating "pick your world" segmented toggle. */
+.theme-toggle {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 10;
+  display: flex;
+  gap: 6px;
+  padding: 6px;
+  background: var(--panel-bg);
+  backdrop-filter: blur(2px);
+  box-shadow:
+    0 0 0 3px var(--panel-border),
+    0 0 0 6px var(--panel-line),
+    6px 7px 0 0 var(--panel-shadow);
+  transition: background-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+.seg {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.6rem 0.7rem;
+  color: var(--ink-soft);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.seg:hover {
+  color: var(--ink);
+}
+
+.seg[aria-pressed='true'] {
+  color: #0d1320;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px var(--panel-border);
+}
+
+.seg:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Staggered entrance for content panels. */
+.reveal {
+  opacity: 0;
+  animation: floatIn 0.6s ease-out forwards;
+}
+
+/* =================================================================== *
+ * Scene: full-viewport animated landscape behind the content
+ * =================================================================== */
+
+.scene {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  --mx: 0px;
+  --my: 0px;
+}
+
+.scene-sky {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--sky-1) 0%, var(--sky-2) 55%, var(--sky-3) 100%);
+  transition: background 0.6s ease;
+}
+
+/* New world fades + drifts in on theme switch. */
+.scene-world {
+  position: absolute;
+  inset: 0;
+  animation: sceneIn 0.55s ease-out both;
+}
+
+.scanlines {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.05) 0,
+    rgba(0, 0, 0, 0.05) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: multiply;
+  opacity: 0.5;
+}
+
+/* Layers that respond to subtle mouse parallax (no keyframe transform). */
+.parallax {
+  transform: translate3d(calc(var(--mx) * var(--depth)), calc(var(--my) * var(--depth)), 0);
+  transition: transform 0.25s ease-out;
+  will-change: transform;
+}
+
+/* ---- Shared sky objects -------------------------------------------- */
+
+.cloud {
+  position: absolute;
+  width: 64px;
+  height: 16px;
+  background: var(--cloud);
+  opacity: 0.9;
+  box-shadow:
+    16px -10px 0 0 var(--cloud),
+    34px -10px 0 0 var(--cloud),
+    24px -20px 0 0 var(--cloud),
+    -14px 0 0 0 var(--cloud),
+    52px 0 0 0 var(--cloud);
+  animation: driftRight linear infinite;
+}
+
+.bird {
+  position: absolute;
+  width: 10px;
+  height: 6px;
+  animation: driftRight linear infinite;
+}
+
+.bird::before,
+.bird::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 6px;
+  height: 3px;
+  border-top: 2px solid var(--panel-border);
+  animation: flap 0.5s steps(2) infinite;
+}
+
+.bird::before {
+  left: 0;
+  transform: rotate(20deg);
+}
+
+.bird::after {
+  right: 0;
+  transform: rotate(-20deg);
+}
+
+/* ---- Mountain world ------------------------------------------------ */
+
+.m-sun {
+  position: absolute;
+  top: 12%;
+  left: 64%;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--sun) 0%, var(--sun) 55%, transparent 72%);
+  opacity: 0.7;
+  --depth: 0.3;
+}
+
+.star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: var(--haze);
+  animation: twinkle ease-in-out infinite;
+}
+
+.ridge {
+  position: absolute;
+  left: -5%;
+  width: 110%;
+}
+
+.ridge-far {
+  bottom: 30%;
+  height: 42%;
+  background: var(--mtn-far);
+  opacity: 0.85;
+  --depth: 0.35;
+  clip-path: polygon(
+    0 100%, 0 46%, 7% 54%, 14% 38%, 22% 50%, 30% 32%, 39% 46%, 48% 28%, 58% 44%,
+    67% 30%, 76% 48%, 85% 34%, 93% 50%, 100% 40%, 100% 100%
+  );
+}
+
+.ridge-mid {
+  bottom: 20%;
+  height: 44%;
+  background: var(--mtn-mid);
+  --depth: 0.6;
+  clip-path: polygon(
+    0 100%, 0 58%, 9% 50%, 18% 64%, 27% 44%, 37% 60%, 47% 38%, 57% 56%, 66% 40%,
+    75% 58%, 84% 44%, 92% 60%, 100% 50%, 100% 100%
+  );
+}
+
+.ridge-near {
+  bottom: 8%;
+  height: 50%;
+  background: var(--mtn-near);
+  --depth: 0.9;
+  clip-path: polygon(
+    0 100%, 0 64%, 11% 74%, 21% 52%, 33% 70%, 44% 46%, 55% 66%, 66% 48%, 77% 70%,
+    88% 54%, 100% 68%, 100% 100%
+  );
+}
+
+.treeline {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 16%;
+  background: var(--treeline);
+  --depth: 1.1;
+  clip-path: polygon(
+    0 100%, 0 50%, 3% 32%, 6% 50%, 9% 28%, 12% 50%, 15% 34%, 18% 50%, 21% 26%,
+    24% 50%, 27% 34%, 30% 50%, 33% 30%, 36% 50%, 39% 34%, 42% 50%, 45% 28%,
+    48% 50%, 51% 32%, 54% 50%, 57% 28%, 60% 50%, 63% 34%, 66% 50%, 69% 30%,
+    72% 50%, 75% 34%, 78% 50%, 81% 28%, 84% 50%, 87% 34%, 90% 50%, 93% 30%,
+    96% 50%, 100% 40%, 100% 100%
+  );
+}
+
+.mist {
+  position: absolute;
+  left: -10%;
+  width: 120%;
+  height: 70px;
+  background: var(--mist);
+  opacity: 0.5;
+  filter: blur(1px);
+  animation: mistDrift ease-in-out infinite alternate;
+}
+
+.mist-1 {
+  bottom: 26%;
+  animation-duration: 14s;
+}
+
+.mist-2 {
+  bottom: 14%;
+  height: 56px;
+  opacity: 0.4;
+  animation-duration: 18s;
+  animation-delay: -6s;
+}
+
+/* ---- Beach world --------------------------------------------------- */
+
+.b-sun {
+  position: absolute;
+  top: 10%;
+  left: 60%;
+  width: 110px;
+  height: 110px;
+  --depth: 0.3;
+}
+
+.b-sun-core {
+  position: absolute;
+  inset: 22px;
+  border-radius: 50%;
+  background: var(--sun);
+  box-shadow: 0 0 0 8px color-mix(in srgb, var(--sun) 45%, transparent);
+}
+
+.b-sun-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--sun) 60%, transparent) 0%, transparent 65%);
+  animation: sunPulse 4.5s ease-in-out infinite;
+}
+
+.sea {
+  position: absolute;
+  left: 0;
+  bottom: 22%;
+  width: 100%;
+  height: 30%;
+  background: linear-gradient(180deg, var(--sea-far) 0%, var(--sea-near) 100%);
+  --depth: 0.5;
+}
+
+.sea-shimmer {
+  position: absolute;
+  left: 0;
+  bottom: 22%;
+  width: 100%;
+  height: 30%;
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--foam) 0 6px,
+    transparent 6px 24px
+  );
+  background-size: 48px 4px;
+  background-repeat: repeat-x;
+  opacity: 0.45;
+  animation:
+    waveShift 1.2s steps(8) infinite,
+    shimmer 3s ease-in-out infinite;
+}
+
+.sand {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 24%;
+  background:
+    repeating-linear-gradient(45deg, var(--sand-2) 0 3px, transparent 3px 9px),
+    linear-gradient(180deg, var(--sand-1) 0%, var(--sand-2) 100%);
+  --depth: 0.8;
+}
+
+.foam {
+  position: absolute;
+  left: 0;
+  bottom: 23.5%;
+  width: 100%;
+  height: 10px;
+  background: var(--foam);
+  opacity: 0.85;
+  box-shadow: 0 6px 0 -2px color-mix(in srgb, var(--foam) 60%, transparent);
+  animation: foamPulse 2.4s steps(4) infinite;
+}
+
+.sailboat {
+  position: absolute;
+  bottom: 50%;
+  left: 18%;
+  width: 26px;
+  height: 30px;
+  --depth: 0.5;
+  animation: sailDrift 9s ease-in-out infinite alternate;
+}
+
+.sailboat::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 26px;
+  height: 8px;
+  background: var(--panel-border);
+  clip-path: polygon(0 0, 100% 0, 84% 100%, 16% 100%);
+}
+
+.sailboat::after {
+  content: '';
+  position: absolute;
+  bottom: 8px;
+  left: 11px;
+  width: 12px;
+  height: 20px;
+  background: var(--foam);
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+
+/* =================================================================== *
+ * Keyframes (transform / opacity only — cheap to animate)
+ * =================================================================== */
+
+@keyframes driftRight {
+  from {
+    transform: translateX(-25vw);
+  }
+  to {
+    transform: translateX(125vw);
+  }
+}
+
+@keyframes mistDrift {
+  0% {
+    transform: translateX(-3%);
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: translateX(3%);
+    opacity: 0.45;
+  }
+}
+
+@keyframes waveShift {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: -48px;
+  }
+}
+
+@keyframes shimmer {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes foamPulse {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-3px);
+    opacity: 0.95;
+  }
+}
+
+@keyframes sunPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.85;
+  }
+}
+
+@keyframes sailDrift {
+  from {
+    transform: translateX(0) translateY(0);
+  }
+  to {
+    transform: translateX(40px) translateY(-2px);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes flap {
+  from {
+    transform: rotate(20deg) scaleY(1);
+  }
+  to {
+    transform: rotate(8deg) scaleY(0.6);
+  }
+}
+
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes sceneIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* =================================================================== *
+ * Respect reduced-motion: drop all ambient motion + parallax.
+ * =================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+  }
+
+  .parallax {
+    transform: none !important;
+  }
+}
